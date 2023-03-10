@@ -1,0 +1,227 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Solid Leads Documentation",
+    "description": "This is an API to generate leads",
+    "version": "1.0.0",
+    "contact": {
+      "email": "smtecsystem.469@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Samuel Mesquita",
+                  "email": "sammexkita.io"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "user": {
+                    "summary": "An example of a user",
+                    "value": {
+                      "id": "86873715-0ecb-47bc-a7fe-042da26d351f",
+                      "admin": false,
+                      "name": "Samuel Mesquita",
+                      "email": "sammexkita.io",
+                      "created_at": "2023-03-10T00:07:48.711Z",
+                      "updated_at": "2023-03-10T00:07:48.711Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"], 
+        "summary": "List all users ",
+        "description": "List all users if your user is admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "ID of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "users": {
+                    "summary": "An example of user",
+                    "value": {
+                      "id": "8ac00d61-e9cd-4683-b450-767b86ff7f2d",
+                      "admin": false,
+                      "name": "Samuel Mesquita",
+                      "email": "sammexkita.io",
+                      "created_at": "2023-03-10T22:37:49.835Z",
+                      "updated_at": "2023-03-10T22:38:02.283Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User dont exist",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "user": {
+                    "summary": "User not found",
+                    "value": {
+                      "error": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Turn user admin",
+        "description": "Turn user admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "user": {
+                    "summary": "An example of admin user",
+                    "value": {
+                      "id": "8ac00d61-e9cd-4683-b450-767b86ff7f2d",
+                      "admin": true,
+                      "name": "Samuel Mesquita",
+                      "email": "sammexkita.io",
+                      "created_at": "2023-03-10T22:37:49.835Z",
+                      "updated_at": "2023-03-10T22:38:02.283Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User dont exist",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "user": {
+                    "summary": "User not found",
+                    "value": {
+                      "error": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by id",
+        "description": "Get an user by id",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "user": {
+                    "summary": "An example of user",
+                    "value": {
+                      "id": "8ac00d61-e9cd-4683-b450-767b86ff7f2d",
+                      "admin": false,
+                      "name": "Samuel Mesquita",
+                      "email": "sammexkita.io",
+                      "created_at": "2023-03-10T22:37:49.835Z",
+                      "updated_at": "2023-03-10T22:38:02.283Z"
+                    }
+                  }
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "User dont exist",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "user": {
+                    "summary": "User not found",
+                    "value": {
+                      "error": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
